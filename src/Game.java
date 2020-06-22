@@ -1,7 +1,7 @@
 
 public class Game {
 	
-	private int[] a = {12,1,14,29,4,27,30,20,16,11,17,31,25,2,13,9,23,21,28,6,8,24,7,10,18,3,26,32,19,5,22,15,0};
+	private final int[] A = {12,1,14,29,4,27,30,20,16,11,17,31,25,2,13,9,23,21,28,6,8,24,7,10,18,3,26,32,19,5,22,15,0};
 	private Player p1;
 	private Player p2;
 	private boolean p1Turn;
@@ -10,11 +10,36 @@ public class Game {
 	
 	public Game() {
 		super();
+		newGame();
+	}
+	
+	public void newGame() {
 		p1 = new Player();
 		p2 = new Player();
 		p1Turn = true;
 		inProgress = true;
-		offer = new Offer(a);
+		offer = new Offer(A);
+	}
+	
+	public String getStatus() {
+		Piece piece1 = getOffer().peek(0);
+		Piece piece2 = getOffer().peek(1);
+		Piece piece3 = getOffer().peek(2);
+		String result = "Player 1 \t\tPlayer 2"
+		+ "\nMoney: " + getP1Money() + "\t\tMoney: " + getP2Money()
+		+ "\nTime: " + getP1TimeRemaining() + " \t\tTime: " + getP2TimeRemaining()
+		+ "\nSpaces: " + getP1UncoveredSpaces() + "\t\tSpaces: " + getP2UncoveredSpaces()
+		+ "\nButtons: " + getP1Buttons() + "\t\tButtons: " + getP2Buttons()
+		+ "\nScore: " + getP1Score() + "\t\tScore: " + getP2Score()
+		+ "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn"
+		+ "\nOffer:"
+		+ "\n\nPiece 1 \t\tPiece 2 \t\tPiece 3"
+		+ "\nCost: " + piece1.getCost() + "  \t\tCost: " + piece2.getCost() + "  \t\tCost: " + piece3.getCost()
+		+ "\nTime: " + piece1.getTime() + "   \t\tTime: " + piece2.getTime() + "   \t\tTime: " + piece3.getTime()
+		+ "\nSpaces: " + piece1.getSpaces() + "\t\tSpaces: " + piece2.getSpaces() + "\t\tSpaces: " + piece3.getSpaces()
+		+ "\nButtons: " + piece1.getButtons() + "\t\tButtons: " + piece2.getButtons() + "\t\tButtons: " + piece3.getButtons();
+		
+		return result;
 	}
 
 	public boolean isP1Turn() {
