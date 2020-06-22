@@ -13,7 +13,7 @@ public class PatchworkSimple {
 			//game status
 			System.out.println("\nPlayer 1 \t\tPlayer 2");
 			System.out.println("Money: " + game.getP1Money() + "\t\tMoney: " + game.getP2Money());
-			System.out.println("Time: " + game.getP1TimeRemaining() + "\t\tTime: " + game.getP2TimeRemaining());
+			System.out.println("Time: " + game.getP1TimeRemaining() + " \t\tTime: " + game.getP2TimeRemaining());
 			System.out.println("Spaces: " + game.getP1UncoveredSpaces() + "\t\tSpaces: " + game.getP2UncoveredSpaces());
 			System.out.println("Buttons: " + game.getP1Buttons() + "\t\tButtons: " + game.getP2Buttons());
 			System.out.println("Score: " + game.getP1Score() + "\t\tScore: " + game.getP2Score());
@@ -45,7 +45,7 @@ public class PatchworkSimple {
 		System.out.println("Money: " + game.getP1Money() + "\t\tMoney: " + game.getP2Money());
 		System.out.println("Time: " + game.getP1TimeRemaining() + "  \t\tTime: " + game.getP2TimeRemaining());
 		System.out.println("Spaces: " + game.getP1UncoveredSpaces() + "\t\tSpaces: " + game.getP2UncoveredSpaces());
-		System.out.println("Income: " + game.getP1Buttons() + "\t\tButtons: " + game.getP2Buttons());
+		System.out.println("Buttons: " + game.getP1Buttons() + "\t\tButtons: " + game.getP2Buttons());
 		System.out.println("Score: " + game.getP1Score() + "\t\tScore: " + game.getP2Score());
 		
 		scan.close();

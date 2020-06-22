@@ -78,7 +78,7 @@ public class Offer {
 		else if (i == 21)
 			return new Piece (4,6,4,2);
 		else if (i == 22)
-			return new Piece (5,4,4,2);
+			return new Piece (5,4,5,2);
 		else if (i == 23)
 			return new Piece (6,5,4,2);
 		else if (i == 24)
