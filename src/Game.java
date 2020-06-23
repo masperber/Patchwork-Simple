@@ -22,24 +22,24 @@ public class Game {
 	}
 	
 	public String getStatus() {
-		Piece piece1 = getOffer().peek(0);
-		Piece piece2 = getOffer().peek(1);
-		Piece piece3 = getOffer().peek(2);
-		String result = "Player 1 \t\tPlayer 2"
+		String result = (!inProgress ? "Game over.\n\n" : "") + "Player 1 \t\tPlayer 2"
 		+ "\nMoney: " + getP1Money() + "\t\tMoney: " + getP2Money()
 		+ "\nTime: " + getP1TimeRemaining() + " \t\tTime: " + getP2TimeRemaining()
 		+ "\nSpaces: " + getP1UncoveredSpaces() + "\t\tSpaces: " + getP2UncoveredSpaces()
 		+ "\nButtons: " + getP1Buttons() + "\t\tButtons: " + getP2Buttons()
 		+ "\nScore: " + getP1Score() + "\t\tScore: " + getP2Score()
-		+ "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn"
-		+ "\nOffer:"
-		+ "\n\nPiece 1 \t\tPiece 2 \t\tPiece 3"
-		+ "\nCost: " + piece1.getCost() + "  \t\tCost: " + piece2.getCost() + "  \t\tCost: " + piece3.getCost()
-		+ "\nTime: " + piece1.getTime() + "   \t\tTime: " + piece2.getTime() + "   \t\tTime: " + piece3.getTime()
-		+ "\nSpaces: " + piece1.getSpaces() + "\t\tSpaces: " + piece2.getSpaces() + "\t\tSpaces: " + piece3.getSpaces()
-		+ "\nButtons: " + piece1.getButtons() + "\t\tButtons: " + piece2.getButtons() + "\t\tButtons: " + piece3.getButtons();
+		+ (inProgress ? "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn" : "");
 		
 		return result;
+	}
+	
+	//delete when deprecated
+	public int[] getNextThree() {
+		int[] n = new int[3];
+		n[0] = offer.peek(0).getId();
+		n[1] = offer.peek(1).getId();
+		n[2] = offer.peek(2).getId();
+		return n;
 	}
 
 	public boolean isP1Turn() {
