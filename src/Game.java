@@ -6,6 +6,7 @@ public class Game {
 	private Player p2;
 	private boolean p1Turn;
 	private boolean inProgress;
+	private int special;
 	private Offer offer;
 	
 	public Game() {
@@ -18,6 +19,7 @@ public class Game {
 		p2 = new Player();
 		p1Turn = true;
 		inProgress = true;
+		special = 27;
 		offer = new Offer(A);
 	}
 	
@@ -28,7 +30,8 @@ public class Game {
 		+ "\nSpaces: " + getP1UncoveredSpaces() + "\t\tSpaces: " + getP2UncoveredSpaces()
 		+ "\nButtons: " + getP1Buttons() + "\t\tButtons: " + getP2Buttons()
 		+ "\nScore: " + getP1Score() + "\t\tScore: " + getP2Score()
-		+ (inProgress ? "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn" : "");
+		+ (inProgress ? "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn" : "")
+		+ "\nSpecial: " + special;
 		
 		return result;
 	}
@@ -103,6 +106,10 @@ public class Game {
 			if(p1.placePiece(p)) { 						// p1 tries to buy the piece
 				result = true;							// purchase successful
 				offer.buy(b);
+				if (p1.getTimeRemaining() <= special) {
+					p1.awardSpecialPatch();
+					special -= 6;
+				}
 				if (p1.isDone() && p2.isDone())			// check if game is done
 					inProgress = false;
 				else if (p1.getTimeRemaining() < p2.getTimeRemaining())
@@ -111,6 +118,10 @@ public class Game {
 		} else if(p2.placePiece(p)) {				// else p2 tries to buy the piece
 				result = true;							// purchase successful
 				offer.buy(b);
+				if (p2.getTimeRemaining() <= special) {
+					p2.awardSpecialPatch();
+					special -= 6;
+				}
 				if (p1.isDone() && p2.isDone())			// check if game is done
 					inProgress = false;
 				else if (p2.getTimeRemaining() < p1.getTimeRemaining())
@@ -127,11 +138,19 @@ public class Game {
 				p1.advance(p1.getTimeRemaining());
 			else
 				p1.advance(p1.getTimeRemaining()-p2.getTimeRemaining()+1);
+			if (p1.getTimeRemaining() <= special) {
+				p1.awardSpecialPatch();
+				special -= 6;
+			}
 		} else {
 			if (p1.isDone())
 				p2.advance(p2.getTimeRemaining());
 			else
 				p2.advance(p2.getTimeRemaining()-p1.getTimeRemaining()+1);
+			if (p2.getTimeRemaining() <= special) {
+				p2.awardSpecialPatch();
+				special -= 6;
+			}
 		}
 		
 		if (p1.isDone() && p2.isDone())

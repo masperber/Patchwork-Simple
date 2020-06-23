@@ -44,6 +44,10 @@ public class Player {
 		return (money - uncoveredSpaces * 2);
 	}
 	
+	public void awardSpecialPatch() {
+		uncoveredSpaces--;
+	}
+	
 	public boolean placePiece(Piece piece) {
 		if(money >= piece.getCost() && uncoveredSpaces >= piece.getSpaces()) {
 			money -= piece.getCost(); 				// pay cost of piece
