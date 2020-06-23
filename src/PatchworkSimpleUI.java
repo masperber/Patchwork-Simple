@@ -25,6 +25,7 @@ public class PatchworkSimpleUI extends JFrame {
 			public void run() {
 				try {
 					PatchworkSimpleUI frame = new PatchworkSimpleUI();
+					frame.pack();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
