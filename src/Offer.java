@@ -1,9 +1,22 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Offer {
 	
 	private ArrayList<Piece> offer;
+	private final int NUM_PIECES = 33;
 	
+	// Random setup
+	public Offer() {
+		offer = new ArrayList<Piece>();
+		for(int i = 1; i < NUM_PIECES; i++) {
+			offer.add(pieceKey(i));
+		}
+		Collections.shuffle(offer);
+		offer.add(pieceKey(0));
+	}
+	
+	// Define a setup
 	public Offer(int[] setup) {
 		offer = new ArrayList<Piece>();
 		for(int i : setup) {

@@ -11,7 +11,6 @@ import javax.swing.JTextArea;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
-import javax.swing.SwingConstants;
 
 public class PatchworkSimpleUI extends JFrame {
 
@@ -50,13 +49,15 @@ public class PatchworkSimpleUI extends JFrame {
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{260, 260, 260};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 210, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 1.0};
+		gbl_contentPane.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0};
 		contentPane.setLayout(gbl_contentPane);
 		
 		// create pane features
-		JTextArea textArea = new JTextArea();
 		JButton btnNewGame = new JButton("New Game");
+		JTextArea textP1;
+		JTextArea textP2;
+		JLabel board = new JLabel();
 		JLabel piece1 = new JLabel();
 		JLabel piece2 = new JLabel();
 		JLabel piece3 = new JLabel();
@@ -65,15 +66,30 @@ public class PatchworkSimpleUI extends JFrame {
 		JButton btnPiece3 = new JButton("Piece 3");
 		JButton btnPass = new JButton("Pass");
 		
-		// set text area attributes
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 3;
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.anchor = GridBagConstraints.NORTH;
-		gbc_textArea.gridx = 0;
-		gbc_textArea.gridy = 1;
-		textArea.setText(game.getStatus());
-		contentPane.add(textArea, gbc_textArea);
+		// set table attributes
+		textP1 = new JTextArea(game.getP1Status());
+		textP1.setEditable(false);
+		GridBagConstraints gbc_textP1 = new GridBagConstraints();
+		gbc_textP1.insets = new Insets(0, 0, 5, 5);
+		gbc_textP1.gridx = 0;
+		gbc_textP1.gridy = 1;
+		contentPane.add(textP1, gbc_textP1);
+		
+		textP2 = new JTextArea(game.getP2Status());
+		textP2.setEditable(false);
+		GridBagConstraints gbc_textP2 = new GridBagConstraints();
+		gbc_textP2.insets = new Insets(0, 0, 5, 0);
+		gbc_textP2.gridx = 2;
+		gbc_textP2.gridy = 1;
+		contentPane.add(textP2, gbc_textP2);
+		
+		// add the board
+		GridBagConstraints gbc_board = new GridBagConstraints();
+		gbc_board.insets = new Insets(0, 0, 5, 5);
+		gbc_board.gridx = 1;
+		gbc_board.gridy = 1;
+		board.setIcon(new ImageIcon("img/board-app.png"));
+		contentPane.add(board,gbc_board);
 		
 		// add the 3 piece images
 		GridBagConstraints gbc_piece1 = new GridBagConstraints();
@@ -93,7 +109,7 @@ public class PatchworkSimpleUI extends JFrame {
 		contentPane.add(piece2,gbc_piece2);
 		
 		GridBagConstraints gbc_piece3 = new GridBagConstraints();
-		gbc_piece3.insets = new Insets(0, 0, 5, 5);
+		gbc_piece3.insets = new Insets(0, 0, 5, 0);
 		gbc_piece3.gridx = 2;
 		gbc_piece3.gridy = 2;
 		piece3.setSize(250, 200);
@@ -102,19 +118,20 @@ public class PatchworkSimpleUI extends JFrame {
 		
 		// set new game button attributes
 		GridBagConstraints gbc_btnNewGame = new GridBagConstraints();
-		gbc_btnNewGame.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewGame.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewGame.gridx = 0;
 		gbc_btnNewGame.gridy = 0;
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				game.newGame();
-				int[] next3 = game.getNextThree();
+				textP1.setText(game.getP1Status());
+				textP2.setText(game.getP2Status());
 				
+				int[] next3 = game.getNextThree();
 				piece1.setIcon(new ImageIcon("img/" + next3[0] + ".gif"));
 				piece2.setIcon(new ImageIcon("img/" + next3[1] + ".gif"));
 				piece3.setIcon(new ImageIcon("img/" + next3[2] + ".gif"));
 				
-				textArea.setText(game.getStatus());
 				btnPiece1.setEnabled(true);
 				btnPiece2.setEnabled(true);
 				btnPiece3.setEnabled(true);
@@ -126,15 +143,16 @@ public class PatchworkSimpleUI extends JFrame {
 		// set button 1 attributes
 		GridBagConstraints gbc_btnPiece1 = new GridBagConstraints();
 		gbc_btnPiece1.ipadx = 18;
-		gbc_btnPiece1.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPiece1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnPiece1.gridx = 0;
 		gbc_btnPiece1.gridy = 3;
 		btnPiece1.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				game.buy(0);
-				textArea.setText(game.getStatus());
-				int[] next3 = game.getNextThree();
+				textP1.setText(game.getP1Status());
+				textP2.setText(game.getP2Status());
 				
+				int[] next3 = game.getNextThree();
 				piece1.setIcon(new ImageIcon("img/" + next3[0] + ".gif"));
 				piece2.setIcon(new ImageIcon("img/" + next3[1] + ".gif"));
 				piece3.setIcon(new ImageIcon("img/" + next3[2] + ".gif"));
@@ -151,15 +169,16 @@ public class PatchworkSimpleUI extends JFrame {
 		// set button 2 attributes
 		GridBagConstraints gbc_btnPiece2 = new GridBagConstraints();
 		gbc_btnPiece2.ipadx = 18;
-		gbc_btnPiece2.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPiece2.insets = new Insets(0, 0, 5, 5);
 		gbc_btnPiece2.gridx = 1;
 		gbc_btnPiece2.gridy = 3;
 		btnPiece2.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				game.buy(1);
-				textArea.setText(game.getStatus());
-				int[] next3 = game.getNextThree();
+				textP1.setText(game.getP1Status());
+				textP2.setText(game.getP2Status());
 				
+				int[] next3 = game.getNextThree();
 				piece1.setIcon(new ImageIcon("img/" + next3[0] + ".gif"));
 				piece2.setIcon(new ImageIcon("img/" + next3[1] + ".gif"));
 				piece3.setIcon(new ImageIcon("img/" + next3[2] + ".gif"));
@@ -182,9 +201,10 @@ public class PatchworkSimpleUI extends JFrame {
 		btnPiece3.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				game.buy(2);
-				textArea.setText(game.getStatus());
-				int[] next3 = game.getNextThree();
+				textP1.setText(game.getP1Status());
+				textP2.setText(game.getP2Status());
 				
+				int[] next3 = game.getNextThree();
 				piece1.setIcon(new ImageIcon("img/" + next3[0] + ".gif"));
 				piece2.setIcon(new ImageIcon("img/" + next3[1] + ".gif"));
 				piece3.setIcon(new ImageIcon("img/" + next3[2] + ".gif"));
@@ -200,14 +220,16 @@ public class PatchworkSimpleUI extends JFrame {
 		
 		// set pass button attributes
 		GridBagConstraints gbc_btnPass = new GridBagConstraints();
-		gbc_btnPass.insets = new Insets(0, 0, 5, 0);
+		gbc_btnPass.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPass.ipadx = 30;
 		gbc_btnPass.gridx = 1;
 		gbc_btnPass.gridy = 4;
 		btnPass.addActionListener(new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				game.advance();
-				textArea.setText(game.getStatus());
+				textP1.setText(game.getP1Status());
+				textP2.setText(game.getP2Status());
+				
 				if(!game.isInProgress()) {
 					btnPiece1.setEnabled(false);
 					btnPiece2.setEnabled(false);

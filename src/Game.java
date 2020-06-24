@@ -1,7 +1,7 @@
 
 public class Game {
 	
-	private final int[] A = {12,1,14,29,4,27,30,20,16,11,17,31,25,2,13,9,23,21,28,6,8,24,7,10,18,3,26,32,19,5,22,15,0};
+	//private final int[] A = {12,1,14,29,4,27,30,20,16,11,17,31,25,2,13,9,23,21,28,6,8,24,7,10,18,3,26,32,19,5,22,15,0};
 	private Player p1;
 	private Player p2;
 	private boolean p1Turn;
@@ -20,19 +20,42 @@ public class Game {
 		p1Turn = true;
 		inProgress = true;
 		special = 27;
-		offer = new Offer(A);
+		//offer = new Offer(A); This line used for specified setup
+		offer = new Offer();
 	}
 	
-	public String getStatus() {
-		String result = (!inProgress ? "Game over.\n\n" : "") + "Player 1 \t\tPlayer 2"
-		+ "\nMoney: " + getP1Money() + "\t\tMoney: " + getP2Money()
-		+ "\nTime: " + getP1TimeRemaining() + " \t\tTime: " + getP2TimeRemaining()
-		+ "\nSpaces: " + getP1UncoveredSpaces() + "\t\tSpaces: " + getP2UncoveredSpaces()
-		+ "\nButtons: " + getP1Buttons() + "\t\tButtons: " + getP2Buttons()
-		+ "\nScore: " + getP1Score() + "\t\tScore: " + getP2Score()
-		+ (inProgress ? "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn" : "")
-		+ "\nSpecial: " + special;
-		
+//	public String getStatus() {
+//		String result = (!inProgress ? "Game over.\n\n" : "") + "Player 1 \t\tPlayer 2"
+//		+ "\nMoney: " + getP1Money() + "\t\tMoney: " + getP2Money()
+//		+ "\nTime: " + getP1TimeRemaining() + " \t\tTime: " + getP2TimeRemaining()
+//		+ "\nSpaces: " + getP1UncoveredSpaces() + "\t\tSpaces: " + getP2UncoveredSpaces()
+//		+ "\nButtons: " + getP1Buttons() + "\t\tButtons: " + getP2Buttons()
+//		+ "\nScore: " + getP1Score() + "\t\tScore: " + getP2Score()
+//		+ (inProgress ? "\n\nPlayer " + (isP1Turn() ? "1" : "2") + "'s turn" : "")
+//		+ "\nSpecial: " + special;
+//		
+//		return result;
+//	}
+	
+	public String getP1Status() {
+		String result = 
+			"Player 1" + 
+			"\nMoney:\t" + getP1Money() +
+			"\nTime:\t" + getP1TimeRemaining() +
+			"\nSpaces:\t" + getP1UncoveredSpaces() +
+			"\nButtons:\t" + getP1Buttons() +
+			"\nScore:\t" + getP1Score();
+		return result;
+	}
+	
+	public String getP2Status() {
+		String result = 
+			"Player 2" + 
+			"\nMoney:\t" + getP2Money() +
+			"\nTime:\t" + getP2TimeRemaining() +
+			"\nSpaces:\t" + getP2UncoveredSpaces() +
+			"\nButtons:\t" + getP2Buttons() +
+			"\nScore:\t" + getP2Score();
 		return result;
 	}
 	
